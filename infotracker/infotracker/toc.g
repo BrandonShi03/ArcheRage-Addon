@@ -1,0 +1,10 @@
+documents/apitypes.lua
+documents/buttoncommon.lua
+documents/button.lua
+main.lua
+setting.lua
+documents/window.lua
+documents/windowcommon.lua
+documents/language.lua
+documents/functions.lua
+documents/eventDatas.lua

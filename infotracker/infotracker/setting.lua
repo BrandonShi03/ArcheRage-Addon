@@ -1,0 +1,10 @@
+DisplayWidget = true -- if you want Widget to show all at, false will disable everything 如果想要游戏画面中上显示信息，关闭会导致以下全部失效
+DisplayWH = true -- WH boss timer and quest 鲸鱼boss时间和接没接任务
+DisplayHalcy = true --halcy certificate 黄金战场勇士的证明和任务
+DisplayCosUnd = true    --expired Costume,Underwear 时装内衣过期
+DisplayStatus = true    --if you dont have the status buff 国王雕像
+DisplayGuild = true --if you didnt unlock guild buff 是否解锁了公会任务
+DisplayDaily = true    --if you didnt unlock daily 是否解锁了每日任务
+DisplayPack = true --if you didnt take 20 pack quest 是否接了20货任务
+DisplayFish = true -- if you didnt take 20 fish quest 是否接了20鱼任务
+ShowButton = true   --to show a traditional button  on ur screen 显示一个按钮，如果改成false可以在esc菜单打开插件
