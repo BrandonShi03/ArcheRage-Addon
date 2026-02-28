@@ -1,0 +1,26 @@
+你好！欢迎来到这个如何配置技能的攻略；如果你不知道如何使用上古维基，网页源代码等，欢迎在qq私聊奈奈呀
+
+1.打开 ArcheRage/Documents/Addon/cooldownTracker/documents/config.lua
+
+["skillId"] = --自定义备注
+    {
+        cooldown = 60, --冷却
+        icon = "icon_item_4006.dds" --图标路径
+    },
+
+
+2.复制上面这个被分隔开的部分，然后在https://wiki.archerage.to/na-cn/搜索技能名字，填到方括号和双引号里，根据里面的数据填写冷却
+
+3.找到图标路径
+	找到物品名字，当你在介绍页的时候点击f12或右键查看网页源代码
+
+点击ctrl+F 搜item，通常可以找到以下：
+
+content="/static/images/icons/icon_item_1648.dds.png" />
+
+你现在找到了关键词1648，把上面的icon后面的
+从icon = "icon_item_4006.dds" to 到
+icon = "icon_item_1648.dds"
+
+然后就可以了，游戏愉快！
+

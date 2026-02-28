@@ -1,0 +1,27 @@
+HI, Welcome to this How to config guild
+
+1.if you are absolutely new to ArcheRage Wiki and Viewing source code, editing as such, feel free to dm me in discord -- Nevermore
+
+2.Open打开 ArcheRage/Documents/Addon/cooldownTracker/documents/config.lua
+
+["skillId"] = --recommended comments for future use
+    {
+        cooldown = 60, --冷却 cooldown
+        icon = "icon_item_4006.dds" --图标路径
+    },
+
+copy the above,you can find the skill Id in https://wiki.archerage.to/na-en/
+
+3.Find icon path 找到图标路径
+search for the item name,once you are at the page, click f12 or right click to view source code.
+
+press control+F search for item, usually you will see something like 
+
+content="/static/images/icons/icon_item_1648.dds.png" />
+
+You see the number 1648,now switch the above code
+icon = "icon_item_4006.dds" to 
+icon = "icon_item_1648.dds"
+
+then you are good to go!
+
