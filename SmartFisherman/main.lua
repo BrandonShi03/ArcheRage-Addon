@@ -18,19 +18,12 @@ if API_TYPE == nil then
     X2Chat:DispatchChatMessage(CMF_SYSTEM, "NO API!")
     return
 end
-version = "1.0"
+version = "1.1"
 
-local fishUpdator = nil
+local language = X2Locale:GetLocale() or "en_us"
 local counter = 0
 local autoSetKey = "R"
 local savedKey = nil
-local keyBind={
-    ["5264"] = "4",
-    ["5265"] = "3",
-    ["5267"] = "5",
-    ["5266"] = "6",
-    ["5508"] = "7"
-}
 
 --window setting
 local titleY = 20 
@@ -44,6 +37,20 @@ function resetKeyBind()
         X2Hotkey:SaveHotKey()
     end
 end
+
+local fishingSlogans = {
+    "天下之鱼，尽入吾钩！",
+    "吾一竿在手，万鱼自来投。",
+    "投竿则鱼至，何须问浅深。",
+    "鱼知吾意，不待相寻。",
+    "波澜不起处，巨鳞已衔钩。",
+    "众鱼争奔走，只恐入钩迟。",
+    "一震沧海定，万尾尽随心。",
+    "不觅清池影，金鳞自献身。",
+    "任尔江湖广，难逃此线牵。",
+    "竿头意气重，指点满江鱼。"
+}
+
 
 local fisherWindow = nil
 local function ToggleFisherWindow()
@@ -74,7 +81,7 @@ local function ToggleFisherWindow()
         end
         fisherWindow:SetHandler("OnDragStop", fisherWindow.OnDragStop)
 
-        someTitle = fisherWindow:CreateChildWidget("label", "someTitle", 0, false)
+        local someTitle = fisherWindow:CreateChildWidget("label", "someTitle", 0, false)
         someTitle:SetHeight(30)
         someTitle:SetText(titleText)
         someTitle.style:SetFontSize(titleFontSize)
@@ -82,7 +89,7 @@ local function ToggleFisherWindow()
         someTitle.style:SetAlign(ALIGN_CENTER)
         someTitle.style:SetColorByKey("brown")
 
-        pressKeyLabel = fisherWindow:CreateChildWidget("label", "pressKeyLabel", 0, false)
+        local pressKeyLabel = fisherWindow:CreateChildWidget("label", "pressKeyLabel", 0, false)
         pressKeyLabel:SetHeight(30)
         pressKeyLabel:SetText(titleText)
         pressKeyLabel.style:SetFontSize(titleFontSize)
@@ -91,7 +98,6 @@ local function ToggleFisherWindow()
         pressKeyLabel.style:SetColorByKey("brown")
 
         local closeButton = fisherWindow:CreateChildWidget("button", "closeButton", 0, true)
-        --closeButton:SetStyle("text_default")
         closeButton:AddAnchor("TOPRIGHT", fisherWindow,-10,10)
         closeButton:Show(true)
         closeButton:SetText("X")
@@ -105,7 +111,6 @@ local function ToggleFisherWindow()
         end
         closeButton:SetHandler("OnClick", closeButton.OnClick)
 
-        
         function fisherWindow:OnUpdate(dt)
             if counter >= 500 then --0.5sec per update
                 counter = 0
@@ -162,9 +167,41 @@ local function ToggleFisherWindow()
         fisherWindow:Show(not fisherWindow:IsVisible())
 end
 
+local function updateFishBindTable()
+    local zoneId = X2Unit:GetCurrentZoneGroup()
+    if zoneId == 49 then --mirage
+        keyBind={
+            ["5264"] = "3",
+            ["5265"] = "2",
+            ["5267"] = "4",
+            ["5266"] = "5",
+            ["5508"] = "6"
+        }
+    else
+        keyBind={
+            ["5264"] = "4",
+            ["5265"] = "3",
+            ["5267"] = "5",
+            ["5266"] = "6",
+            ["5508"] = "7"
+        }
+    end
+end
+UIParent:SetEventHandler(UIEVENT_TYPE.LEFT_LOADING, updateFishBindTable)--move to a new zone
+
 local function EnteredWorld()
-    X2Chat:DispatchChatMessage(CMF_SYSTEM,string.format(ADDON_SUCCESS .. "%s",version or "未知"))
     X2Hotkey:BindingToOption()
+    updateFishBindTable()--init check
+    language = X2Locale:GetLocale() or "en_us"
+    if language == "zh_cn" then
+        math.randomseed(os.time())
+        math.random()
+        local randomIndex = math.random(1, #fishingSlogans)
+        local msg = string.format("%s 版本:%s %s", ADDON_SUCCESS, version or "未知", fishingSlogans[randomIndex])
+        X2Chat:DispatchChatMessage(CMF_SYSTEM, msg)
+    else
+        X2Chat:DispatchChatMessage(CMF_SYSTEM,string.format(ADDON_SUCCESS .. "%s",version or "Unknown"))
+    end
 end
 UIParent:SetEventHandler(UIEVENT_TYPE.ENTERED_WORLD, EnteredWorld)
 
